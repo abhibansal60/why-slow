@@ -1,0 +1,14 @@
+{
+  "name": "why-slow",
+  "owner": { "name": "Abhinav Bansal", "url": "https://github.com/abhibansal60" },
+  "description": "why-slow: Linux slowdown diagnosis as an agent skill.",
+  "plugins": [
+    {
+      "name": "why-slow",
+      "source": "./",
+      "description": "Find out why a Linux machine is slow with read-only checks, then fix it one approved step at a time.",
+      "category": "productivity",
+      "keywords": ["linux", "performance", "diagnostics", "sysadmin"]
+    }
+  ]
+}

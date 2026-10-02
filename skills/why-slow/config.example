@@ -1,0 +1,22 @@
+# why-slow config. Copy to ~/.config/why-slow/config and edit.
+# Plain KEY=VALUE lines. The file is read, never executed.
+
+# Process names (as in /proc/PID/comm) that must never be killed or stopped.
+# These are added to the built-in list (desktop shells, display servers, session managers, audio, sshd).
+# Start the value with = to replace the built-in list instead: PROTECT_NAMES==foo,bar
+PROTECT_NAMES=alacritty,kitty,gnome-terminal-,ptyxis,konsole,wezterm-gui,foot
+
+# Anything running underneath these processes is off limits too, including their children.
+# Put your terminal multiplexer or agent session manager here, so the agent never kills its own
+# sessions or other sessions' work (for example tmux, zellij, screen).
+PROTECT_ANCESTORS=tmux: server,zellij,screen
+
+# Directories to size up. Scratch space on tmpfs counts against RAM.
+SCRATCH_DIRS=/tmp,/dev/shm,~/.cache
+
+# Flag long-running processes averaging at least this much CPU.
+CPU_PCT=20
+# List processes with more than this much in swap (KB).
+SWAP_KB=20000
+# Rows per list.
+TOP_N=15

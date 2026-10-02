@@ -1,0 +1,14 @@
+{
+  "name": "why-slow",
+  "displayName": "why-slow",
+  "version": "0.1.0",
+  "description": "Find out why a Linux machine is slow with read-only checks, then fix it one approved step at a time. Never touches processes you protect.",
+  "author": {
+    "name": "Abhinav Bansal",
+    "url": "https://github.com/abhibansal60"
+  },
+  "repository": "https://github.com/abhibansal60/why-slow",
+  "homepage": "https://github.com/abhibansal60/why-slow",
+  "license": "MIT",
+  "keywords": ["linux", "performance", "diagnostics", "sysadmin", "slow"]
+}
