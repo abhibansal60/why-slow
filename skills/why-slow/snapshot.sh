@@ -34,7 +34,8 @@ ppid_of() { sed 's/.*) //' "/proc/$1/stat" 2>/dev/null | cut -d' ' -f2; }
 guard() {
   local p=$1 c
   c=$(cat "/proc/$p/comm" 2>/dev/null) || return
-  in_list "$c" "$PROTECT_NAMES" && { echo "PROTECTED($c)"; return; }
+  # A protected ancestor (say the tmux server) is itself protected: killing it kills everything under it.
+  in_list "$c" "$PROTECT_NAMES,$PROTECT_ANCESTORS" && { echo "PROTECTED($c)"; return; }
   while p=$(ppid_of "$p") && [ "${p:-0}" -gt 1 ]; do
     c=$(cat "/proc/$p/comm" 2>/dev/null)
     in_list "$c" "$PROTECT_ANCESTORS" && { echo "PROTECTED(inside $c:$p)"; return; }
