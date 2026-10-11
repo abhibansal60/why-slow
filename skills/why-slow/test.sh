@@ -23,6 +23,8 @@ printf 'PROTECT_ANCESTORS=whyslowparent\n' > "$WHY_SLOW_CONFIG"
 printf 'PROTECT_NAMES==sleep\n' > "$WHY_SLOW_CONFIG"
 "$here/snapshot.sh" --guard "$child" | grep -q 'PROTECTED(sleep)' || fail "replace list failed"
 
+"$here/snapshot.sh" --guard $$ | grep -q 'PROTECTED(own session' || fail "caller's own process not protected"
+
 "$here/snapshot.sh" --guard 999999999 >/dev/null; [ $? -eq 2 ] || fail "missing PID not reported"
 
 "$here/snapshot.sh" > "$tmp/out" 2>&1 || fail "snapshot exited non-zero"
