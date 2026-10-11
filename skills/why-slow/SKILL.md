@@ -12,7 +12,7 @@ Diagnose first, change nothing. Every kill, stop, restart or delete needs the us
 1. **Read-only until approved.** Don't kill, stop, restart, renice or delete anything, and don't change sysctl, services or config on your own. For each proposed fix, show the PID, parent, what it is, what it costs (CPU %, RSS, swap, how long it has run) and the exact command. Then wait. A general "go ahead" covers the items you listed and nothing else. Re-ask for anything that can't be undone, like deleting files.
 2. **Respect the protect list.** `snapshot.sh` tags processes `PROTECTED(...)` when their name, or the name of any ancestor, is on the user's protect list. Never propose killing a protected process. Before proposing any fix, run `snapshot.sh --guard <PID>`; exit 1 means hands off. You can still report what a protected process costs and suggest the user deal with it.
 3. **Never stop your own session or the user's.** That means the agent's own process tree, the terminal it runs in, the desktop session, the display server, the login manager, and the shell.
-4. **Files.** Before suggesting deleting anything, check whether a running process has it open (`ls -l /proc/*/fd 2>/dev/null | grep <path>`). If one does, suggest cleaning it up from inside that program instead.
+4. **Files.** Before suggesting deleting anything, check whether a running process has it open: `find /proc/[0-9]*/fd -lname '<path>*' 2>/dev/null` prints `/proc/<PID>/fd/<n>` for each open file under it. If one does, suggest cleaning it up from inside that program instead.
 5. **No sudo prompts.** If a command needs a password, use an unprivileged alternative (`journalctl -k` instead of `dmesg`) and say what you couldn't see.
 
 ## Steps
