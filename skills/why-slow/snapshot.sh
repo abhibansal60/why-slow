@@ -114,7 +114,8 @@ sec "kernel: OOM / disk / GPU / thermal since $since"
 journalctl -k --since "$since" -q --no-pager 2>/dev/null | grep -i -E 'out of memory|killed process|oom-kill|i/o error|nvme.*(error|timeout)|ata[0-9].*error|amdgpu.*(error|timeout)|i915.*(error|hang)|nouveau|nvrm|thermal|throttl|hogged CPU|soft lockup|hung_task' | tail -20
 
 sec "warnings since $since (deduped, top $TOP_N)"
-journalctl -p warning --since "$since" -q --no-pager 2>/dev/null | cut -d' ' -f5- | grep -v -E '^ *(#|==)' |
+# Indented lines continue a multi-line message (stack traces); count each message once by its first line.
+journalctl -p warning --since "$since" -q --no-pager 2>/dev/null | grep -v '^[[:space:]]' | cut -d' ' -f5- |
   sed -E 's/0x[0-9a-f]+/0xN/g; s/[0-9]+/N/g' | sort | uniq -c | sort -rn | head -"$TOP_N" | cut -c1-200
 echo "\"system is too slow\" input-lag lines: $(journalctl --since "$since" -q --no-pager 2>/dev/null | grep -c 'system is too slow')"
 
