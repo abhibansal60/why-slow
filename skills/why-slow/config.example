@@ -6,7 +6,7 @@
 # Start the value with = to replace the built-in list instead: PROTECT_NAMES==foo,bar
 PROTECT_NAMES=alacritty,kitty,gnome-terminal-,ptyxis,konsole,wezterm-gui,foot
 
-# Anything running underneath these processes is off limits too, including their children.
+# These processes, and anything running underneath them, are off limits too.
 # Put your terminal multiplexer or agent session manager here, so the agent never kills its own
 # sessions or other sessions' work (for example tmux, zellij, screen).
 PROTECT_ANCESTORS=tmux: server,zellij,screen

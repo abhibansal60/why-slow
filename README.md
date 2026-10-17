@@ -46,7 +46,7 @@ Every process in the lists is tagged `PROTECTED(...)` if your config says to lea
 Copy [`skills/why-slow/config.example`](skills/why-slow/config.example) to `~/.config/why-slow/config`. It's plain `KEY=VALUE`, read and never executed.
 
 - `PROTECT_NAMES`: process names never to kill. They're added to built-in defaults (desktop shells, display servers, login managers, audio, `sshd`). Start the value with `=` to replace the defaults.
-- `PROTECT_ANCESTORS`: everything running under these is off limits too, for example `tmux: server,zellij` or your agent session manager. This keeps an agent from killing its own session or another agent's work.
+- `PROTECT_ANCESTORS`: these processes and everything running under them are off limits, for example `tmux: server,zellij` or your agent session manager. This keeps an agent from killing its own session or another agent's work.
 - `SCRATCH_DIRS`, `CPU_PCT`, `SWAP_KB`, `TOP_N`: what to size up, and the thresholds.
 
 For notes that should stick, like causes you've seen before on this machine or "never touch my VM", put them in `~/.config/why-slow/known-causes.md`. The skill reads that file on every run and offers to add new findings to it.

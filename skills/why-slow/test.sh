@@ -19,6 +19,7 @@ printf 'PROTECT_NAMES=whyslowparent\nPROTECT_ANCESTORS==\n' > "$WHY_SLOW_CONFIG"
 
 printf 'PROTECT_ANCESTORS=whyslowparent\n' > "$WHY_SLOW_CONFIG"
 "$here/snapshot.sh" --guard "$child" | grep -q 'PROTECTED(inside whyslowparent:' || fail "descendant not protected"
+"$here/snapshot.sh" --guard "$parent" | grep -q 'PROTECTED(whyslowparent)' || fail "protected ancestor itself not protected"
 
 printf 'PROTECT_NAMES==sleep\n' > "$WHY_SLOW_CONFIG"
 "$here/snapshot.sh" --guard "$child" | grep -q 'PROTECTED(sleep)' || fail "replace list failed"
