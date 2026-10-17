@@ -30,9 +30,12 @@ fi
 sec() { printf '\n=== %s ===\n' "$1"; }
 in_list() { case ",$2," in *",$1,"*) return 0 ;; esac; return 1; }
 ppid_of() { sed 's/.*) //' "/proc/$1/stat" 2>/dev/null | cut -d' ' -f2; }
+# Ancestors of this script: the agent, its shell, terminal and multiplexer.
+own=","; p=$$; while [ "${p:-0}" -gt 1 ]; do own+="$p,"; p=$(ppid_of "$p"); done
 # Prints why a PID must not be touched, or nothing.
 guard() {
   local p=$1 c
+  in_list "$p" "$own" && { echo "PROTECTED(own session)"; return; }
   c=$(cat "/proc/$p/comm" 2>/dev/null) || return
   # A protected ancestor (say the tmux server) is itself protected: killing it kills everything under it.
   in_list "$c" "$PROTECT_NAMES,$PROTECT_ANCESTORS" && { echo "PROTECTED($c)"; return; }
